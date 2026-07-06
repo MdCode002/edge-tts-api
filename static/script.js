@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
             downloadBtn.href = audioSrc;
             
             // Fichier SRT
-            const srtSrc = `data:text/plain;base64,${data.srt_base64}`;
+            const srtSrc = `data:text/plain;charset=utf-8;base64,${data.srt_base64}`;
             downloadSrtBtn.href = srtSrc;
             
             resultContainer.classList.remove('hidden');

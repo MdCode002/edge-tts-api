@@ -122,7 +122,7 @@ async def generate_tts(request: TTSRequest, api_key: str = Depends(get_api_key))
     """
     logger.info(f"Génération TTS demandée pour la voix: {request.voice}, texte: {request.text[:30]}...")
     try:
-        communicate = edge_tts.Communicate(request.text, request.voice)
+        communicate = edge_tts.Communicate(request.text, request.voice, boundary="WordBoundary")
         audio_data = b""
         all_words = []
         

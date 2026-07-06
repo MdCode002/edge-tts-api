@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  edge-tts-api:
+    build: .
+    container_name: edge-tts-api
+    ports:
+      - "8006:8000"
+    volumes:
+      - ./static:/app/static
+      - ./.env:/app/.env
+    environment:
+      - PYTHONUNBUFFERED=1
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+          cpus: "1.0"
+    restart: unless-stopped

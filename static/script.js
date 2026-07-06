@@ -7,11 +7,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultContainer = document.getElementById('resultContainer');
     const audioPlayer = document.getElementById('audioPlayer');
     const downloadBtn = document.getElementById('downloadBtn');
+    const downloadSrtBtn = document.getElementById('downloadSrtBtn');
     const errorContainer = document.getElementById('errorContainer');
 
     // Charger les voix au démarrage
-    fetch('/api/voices')
-        .then(res => res.json())
+    fetch('/api/voices', { headers: { 'X-API-Key': window.API_KEY } })
+        .then(res => {
+            if (!res.ok) throw new Error('Erreur API (Vérifiez la clé API)');
+            return res.json();
+        })
         .then(data => {
             voiceSelect.innerHTML = '';
             data.voices.forEach(voice => {
@@ -47,7 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch('/api/tts', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'X-API-Key': window.API_KEY
                 },
                 body: JSON.stringify({
                     text: text,
@@ -66,6 +71,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const audioSrc = `data:audio/mp3;base64,${data.audio_base64}`;
             audioPlayer.src = audioSrc;
             downloadBtn.href = audioSrc;
+            
+            // Fichier SRT
+            const srtSrc = `data:text/plain;base64,${data.srt_base64}`;
+            downloadSrtBtn.href = srtSrc;
             
             resultContainer.classList.remove('hidden');
             audioPlayer.play();

@@ -45,7 +45,9 @@ def verify_credentials(credentials: HTTPBasicCredentials = Depends(security)):
 @app.get("/", response_class=HTMLResponse)
 async def get_ui(username: str = Depends(verify_credentials)):
     with open("static/index.html", "r", encoding="utf-8") as f:
-        return f.read()
+        content = f.read()
+        # Inject API_KEY so the frontend JS can use it
+        return content.replace("{{API_KEY}}", API_KEY)
 
 # Les fichiers statiques (JS, CSS) sont publics mais ils ne servent à rien sans l'accès à la page
 app.mount("/static", StaticFiles(directory="static"), name="static")

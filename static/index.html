@@ -36,7 +36,10 @@
                 <div id="resultContainer" class="result-container hidden">
                     <h3>Résultat :</h3>
                     <audio id="audioPlayer" controls></audio>
-                    <a id="downloadBtn" class="secondary-btn" download="synthese_vocale.mp3">⬇️ Télécharger MP3</a>
+                    <div style="display: flex; gap: 10px; margin-top: 15px;">
+                        <a id="downloadBtn" class="secondary-btn" download="synthese_vocale.mp3">⬇️ Audio MP3</a>
+                        <a id="downloadSrtBtn" class="secondary-btn" download="captions.srt">⬇️ Sous-titres SRT</a>
+                    </div>
                 </div>
 
                 <div id="errorContainer" class="error-container hidden"></div>
@@ -44,6 +47,9 @@
         </main>
     </div>
 
+    <script>
+        window.API_KEY = "{{API_KEY}}";
+    </script>
     <script src="/static/script.js"></script>
 </body>
 </html>

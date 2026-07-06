@@ -6,8 +6,6 @@ services:
     container_name: edge-tts-api
     ports:
       - "8006:8000"
-    volumes:
-      - ./static:/app/static
     env_file:
       - .env
     environment:
